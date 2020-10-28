@@ -1,0 +1,19 @@
+
+syntax = "proto3";
+option java_multiple_files = true;
+package com.distributed.grpc.server.grpcserver;
+import "google/protobuf/empty.proto";
+
+message AuthorList {
+    repeated Author authorList = 1;
+}
+
+message Author {
+    int32 id = 1;
+    string firstName = 2;
+    string lastName = 3;
+}
+
+service AuthorService {
+    rpc getAllAuthors(google.protobuf.Empty) returns (AuthorList);
+}

@@ -4,6 +4,7 @@ import com.course.distributecommunication.frontend.dto.AuthorDto;
 import com.course.distributecommunication.frontend.dto.BookDto;
 import com.course.distributecommunication.frontend.dto.FrontendDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ public class DashboardService {
 
     private final WebClient webClientAuthors;
     private final WebClient webClientBooks;
+    @Autowired
+    private GrpcDashboardService grpcDashboardService;
 
     private DashboardService(WebClient.Builder webClientBuilder) {
         this.webClientAuthors = webClientBuilder.baseUrl("http://authors:8080/api/v1/authors").build();
@@ -49,10 +52,17 @@ public class DashboardService {
                 .block();
     }
 
-    public FrontendDto getAggregate() {
+    public FrontendDto getAggregateRest() {
         FrontendDto dto = new FrontendDto();
         dto.setAuthors(getAuthors());
         dto.setBooks(getBooks());
+        return dto;
+    }
+
+    public FrontendDto getAggregateGrpc() {
+        FrontendDto dto = new FrontendDto();
+        dto.setAuthors(grpcDashboardService.receiveAuthors());
+        dto.setBooks(grpcDashboardService.receiveBooks());
         return dto;
     }
 }

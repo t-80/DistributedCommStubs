@@ -6,12 +6,14 @@ services:
       - "8091:8080"
     expose:
       - "8080"
+      - "9090"
   books:
     build: ./books
     ports:
       - "8092:8080"
     expose:
       - "8080"
+      - "9090"
   frontend:
     build: ./frontend
     ports:
