@@ -4,7 +4,6 @@ FROM openjdk:8-alpine
 ADD target/course-distributecommunication-books-0.0.2.jar app.jar
 # We state that we want to open port 8080 on the container﻿
 EXPOSE 8080
-EXPOSE 9090
 # We run a command on the system to “touch” the file. This ensures a file modification date on the app.jar file
 RUN sh -c 'touch /app.jar'
 # The ENTRYPOINT command is the “what to run to ‘start'” command — we run Java, setting our Spring Mongo property and a quick additional property to speed up the Tomcat startup time, and then point it at our jar
