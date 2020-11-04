@@ -14,21 +14,6 @@ message Author {
     string lastName = 3;
 }
 
-message BookList {
-    repeated Book bookList = 1;
-}
-
-message Book {
-    int32 id = 1;
-    string title = 2;
-    int32 pages = 3;
-    int32 authorId = 4;
-}
-
 service AuthorService {
     rpc getAllAuthors(google.protobuf.Empty) returns (AuthorList);
-}
-
-service BookService {
-    rpc getAllBooks(google.protobuf.Empty) returns (BookList);
 }
