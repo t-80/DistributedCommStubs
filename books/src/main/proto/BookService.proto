@@ -1,0 +1,20 @@
+
+syntax = "proto3";
+option java_multiple_files = true;
+package com.distributed.grpc.server.grpcserver;
+import "google/protobuf/empty.proto";
+
+message BookList {
+    repeated Book bookList = 1;
+}
+
+message Book {
+    int32 id = 1;
+    string title = 2;
+    int32 pages = 3;
+    int32 authorId = 4;
+}
+
+service BookService {
+    rpc getAllBooks(google.protobuf.Empty) returns (BookList);
+}

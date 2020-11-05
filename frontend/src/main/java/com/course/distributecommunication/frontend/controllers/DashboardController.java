@@ -18,9 +18,14 @@ public class DashboardController {
 
     private final DashboardService dashboardService;
 
-    @GetMapping
-    public FrontendDto getFrontendDto() {
-        return dashboardService.getAggregate();
+    @GetMapping("rest")
+    public FrontendDto getFrontendDtoRest() {
+        return dashboardService.getAggregateRest();
+    }
+
+    @GetMapping("grpc")
+    public FrontendDto getFrontendDtoGrpc() {
+        return dashboardService.getAggregateGrpc();
     }
 
     @ExceptionHandler(Exception.class)
