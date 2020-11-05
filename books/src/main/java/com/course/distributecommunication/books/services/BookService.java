@@ -1,6 +1,9 @@
 package com.course.distributecommunication.books.services;
 
 import com.course.distributecommunication.books.models.Book;
+import com.course.distributecommunication.books.models.BookAndAuthor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -10,6 +13,8 @@ import java.util.HashMap;
 public class BookService
 {
     private final HashMap<Integer, Book> books;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     public BookService() {
         books = new HashMap<Integer, Book>();
@@ -26,5 +31,15 @@ public class BookService
 
     public Book findById(int id) {
         return this.books.get(id);
+    }
+
+    public void add(BookAndAuthor bookAndAuthor) {
+        int id = books.size() + 1;
+        books.put(id, new Book(id)
+                .withTitle(bookAndAuthor.getTitle())
+                .withPages(bookAndAuthor.getPages())
+                .withAuthorId(bookAndAuthor.getAuthorId()));
+
+        rabbitTemplate.convertAndSend("bookQueue", bookAndAuthor);
     }
 }

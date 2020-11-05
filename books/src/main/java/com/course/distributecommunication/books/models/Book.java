@@ -1,5 +1,8 @@
 package com.course.distributecommunication.books.models;
 
+import lombok.Data;
+
+@Data
 public class Book
 {
     private int id;
