@@ -32,4 +32,4 @@ services:
       - "15672:15672"
     links:
       - authors
-      - frontend
+      - books

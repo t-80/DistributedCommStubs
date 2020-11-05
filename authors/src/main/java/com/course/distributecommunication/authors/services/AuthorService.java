@@ -1,6 +1,7 @@
 package com.course.distributecommunication.authors.services;
 
 import com.course.distributecommunication.authors.models.Author;
+import com.course.distributecommunication.authors.models.BookAndAuthor;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,5 +25,13 @@ public class AuthorService
 
     public Author findById(int id) {
         return this.authors.get(id);
+    }
+
+    public void add(BookAndAuthor bookAndAuthor) {
+        if (findById(bookAndAuthor.getAuthorId()) == null) {
+            authors.put(bookAndAuthor.getAuthorId(), new Author(bookAndAuthor.getAuthorId())
+                    .withFirstName(bookAndAuthor.getFirstName())
+                    .withLastName(bookAndAuthor.getLastName()));
+        }
     }
 }
